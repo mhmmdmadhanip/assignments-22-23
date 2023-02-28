@@ -214,7 +214,8 @@ public class NotaGenerator {
         }else{
             finalName = nama;
         }
-        String result = finalName.toUpperCase() + "-" + nomorHP + "-" + strId;//Membuat variabel untuk direturn
+        int idLength = strId.length();
+        String result = finalName.toUpperCase() + "-" + nomorHP + "-" + strId.substring(idLength-2);//Membuat variabel untuk direturn
         return result;
     }
 
