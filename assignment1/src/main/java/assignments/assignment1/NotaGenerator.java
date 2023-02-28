@@ -18,17 +18,17 @@ public class NotaGenerator {
             printMenu();
             System.out.print("Pilihan: ");
             //menginitialize inputPilihan di luar try and catch
-            int inputPilihan;
+            String inputPilihan;
             //menggunakan try and catch untuk memvalidasi input di inputPilihan
             try{
-            inputPilihan = input.nextInt();
+            inputPilihan = input.nextLine();
             System.out.println("================================");
-            if(inputPilihan == 1){//Apabila inputPilihan == 2 maka program akan menjalankan generateId
+            if(inputPilihan.equals("1")){//Apabila inputPilihan == 2 maka program akan menjalankan generateId
                 String nameShow =firstName();
                 String inputNomor = nomorHp();
                 System.out.println("ID Anda: "+generateId(nameShow, inputNomor));
 
-            }else if(inputPilihan == 2){//Apabila inputPilihan == 2 maka program akan menjalankan generateNota
+            }else if(inputPilihan.equals("2")){//Apabila inputPilihan == 2 maka program akan menjalankan generateNota
                 String nameShow = firstName();
                 String inputNomor = nomorHp();
                 System.out.println("Masukkan tanggal terima:");
@@ -38,7 +38,7 @@ public class NotaGenerator {
                 System.out.println("Nota Laundry");
                 System.out.println(generateNota(generateId(nameShow, inputNomor), inputPaket, inputBerat, inputDate));
 
-            }else if(inputPilihan == 0){//Apabila inputPilihan == 0 maka program akan berhenti
+            }else if(inputPilihan.equals("0")){//Apabila inputPilihan == 0 maka program akan berhenti
                 mulai = false;
                 System.out.println("Terima kasih telah menggunakan NotaGenerator");
             }else{//Apabila input berbentuk integer namun bukan 0, 1, atau 2 maka kondisi ini akan dijalankan
@@ -78,7 +78,6 @@ public class NotaGenerator {
     
     //Method untuk meminta input nama dan mereturn kata pertama dari nama yang diinput
     public static String firstName(){
-        input.nextLine();
         System.out.println("Masukkan nama Anda:");
         String inputNama = input.nextLine();
         int spaceIndex = inputNama.indexOf(" "); //mencari index spasi
@@ -97,7 +96,7 @@ public class NotaGenerator {
         boolean numCheck = true;
         String inputNomor = "";
         while(numCheck){
-            inputNomor = input.next();
+            inputNomor = input.nextLine();
             byte[] cekNomor = inputNomor.getBytes(StandardCharsets.US_ASCII);//Mengubah inputNomor ke dalam bentuk Ascii
             for(int i = 0; i < inputNomor.length();i ++){
                 if(cekNomor[i] < 48 || cekNomor[i] > 57){//Apabila bukan angka 0-9 maka for loop kaan dibreak dan meminta input kembali
