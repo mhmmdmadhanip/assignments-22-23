@@ -80,14 +80,7 @@ public class NotaGenerator {
     public static String firstName(){
         System.out.println("Masukkan nama Anda:");
         String inputNama = input.nextLine();
-        int spaceIndex = inputNama.indexOf(" "); //mencari index spasi
-        String firstName ="";
-        if(spaceIndex != -1){//apabila input terdapat spasi maka inputNama akan diambil kata depannya saja
-            firstName = inputNama.substring(0,spaceIndex);
-        }else{ //Apabila tidak ada spasi maka akan mereturn inputNama
-            firstName = inputNama;
-        }
-        return firstName;
+        return inputNama;
     }
 
     //Methoduntuk memavalidasi nomor HP
@@ -174,13 +167,20 @@ public class NotaGenerator {
 
     //Method untuk memberikan return ID
     public static String generateId(String nama, String nomorHP){
+        int indexSpace = nama.indexOf(" "); 
+        String finalName = "" ;
+        if(indexSpace != -1){
+        finalName = nama.substring(0, indexSpace);
+        }else{
+            finalName = nama;
+        }
         int id = 7;
-        nama = nama.toLowerCase(); //Mengubah inputNama menjadi lower case
+        finalName = finalName.toLowerCase(); //Mengubah inputNama menjadi lower case
         //Mengubah inputNama dan inputNomor ke dalam bentuk Ascii
-        byte[] asciiName = nama.getBytes(StandardCharsets.US_ASCII);
+        byte[] asciiName = finalName.getBytes(StandardCharsets.US_ASCII);
         byte[] asciiNumber = nomorHP.getBytes(StandardCharsets.US_ASCII);
         //For loop untuk mengubah nama menjadi id
-        for(int i = 0; i < nama.length();i ++){
+        for(int i = 0; i < finalName.length();i ++){
             if(asciiName[i] == 32){//Apabila ada spasi maka program loop akan dibreak
                 break;
             }else if(asciiName[i] < 97 || asciiName[i] > 122){//Apabila nama dalam bentuk simbol maka kondisi ini akan dijalankan
@@ -206,13 +206,6 @@ public class NotaGenerator {
             strId = "0"  + id;
         }
         //Mengecek kembali apakah sudah tidak ada spasi dalam nama yang akan dijadikan output
-        int indexSpace = nama.indexOf(" "); 
-        String finalName = "" ;
-        if(indexSpace != -1){
-        finalName = nama.substring(0, indexSpace);
-        }else{
-            finalName = nama;
-        }
         int idLength = strId.length();
         String result = finalName.toUpperCase() + "-" + nomorHP + "-" + strId.substring(idLength-2);//Membuat variabel untuk direturn
         return result;

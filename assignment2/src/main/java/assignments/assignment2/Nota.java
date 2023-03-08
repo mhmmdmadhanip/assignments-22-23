@@ -1,12 +1,43 @@
 package assignments.assignment2;
 
-import assignments.assignment1.NotaGenerator;
-
 public class Nota {
-    // TODO: tambahkan attributes yang diperlukan untuk class ini
-    public Nota(Member member, String paket, int berat, String tanggalMasuk) {
-        // TODO: buat constructor untuk class ini
+    private int idNota;
+    private String paket;
+    private int berat;
+    private String tanggalMasuk;
+    private int sisaHariPengerjaan;
+    private boolean isReady;
+    private Member member;
+
+    public Nota(Member member, String paket, int berat, String tanggalMasuk, int idNota, int sisaHariPengerjaan, boolean isReady) {
+        this.member = member;
+        this.paket = paket;
+        this.berat = berat;
+        this.tanggalMasuk = tanggalMasuk;
+        this.idNota = idNota;
+        this.sisaHariPengerjaan = sisaHariPengerjaan;
+        this.isReady = isReady;
     }
 
-    // TODO: tambahkan methods yang diperlukan untuk class ini
+    public Member getMember(){
+        return this.member;
+    }
+    public String getPaket(){
+        return this.paket;
+    }
+    public int getBerat(){
+        return this.berat;
+    }
+    public int getIdNota(){
+        return this.idNota;
+    }
+    public int getSisaHari(){
+        return this.sisaHariPengerjaan;
+    }
+    public String getTanggalMasuk(){
+        return this.tanggalMasuk;
+    }
+    public boolean getIsReady(){
+        return this.isReady;
+    }
 }
