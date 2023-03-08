@@ -35,7 +35,6 @@ public class NotaGenerator {
                 String inputDate = input.next();
                 String inputPaket = cekPaket();
                 int inputBerat = cekBerat();
-                System.out.println("Nota Laundry");
                 System.out.println(generateNota(generateId(nameShow, inputNomor), inputPaket, inputBerat, inputDate));
 
             }else if(inputPilihan.equals("0")){//Apabila inputPilihan == 0 maka program akan berhenti
@@ -239,6 +238,7 @@ public class NotaGenerator {
             strSelesai = tanggalSelesai.format(formatDay);
         }
         int totalHarga = berat*hargaPaket;//Menghitung total harga
+        System.out.println("Nota Laundry");
         //Membuat String perbaris
         String idShow = "ID    : "+id+"\n";
         String paketShow = "Paket : "+paket+"\n";
