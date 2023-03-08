@@ -40,4 +40,14 @@ public class Nota {
     public boolean getIsReady(){
         return this.isReady;
     }
+    public void kurangHari(){
+        if(this.sisaHariPengerjaan != 0){
+            this.sisaHariPengerjaan--;
+        }
+    }
+    public void bisaAmbil(){
+        if(this.sisaHariPengerjaan == 0){
+            this.isReady = true;
+        }
+    }
 }

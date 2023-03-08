@@ -92,7 +92,7 @@ public class NotaGenerator {
             byte[] cekNomor = inputNomor.getBytes(StandardCharsets.US_ASCII);//Mengubah inputNomor ke dalam bentuk Ascii
             for(int i = 0; i < inputNomor.length();i ++){
                 if(cekNomor[i] < 48 || cekNomor[i] > 57){//Apabila bukan angka 0-9 maka for loop kaan dibreak dan meminta input kembali
-                    System.out.println("Nomor hp hanya menerima digit");
+                    System.out.println("Field nomor hp hanya menerima digit");
                     break;
                 }
                 //Apabila semua digit berbentuk angka maka numCheck akan menjadi false agar tidak melakukan loop kembali 
@@ -151,6 +151,10 @@ public class NotaGenerator {
             //Apabila inputBerat sudah valid maka program akan keluar dari while loop
             if(inputBerat > 0){
                 cekBerat = false;
+                if(inputBerat < 2){
+                    System.out.println("Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg");
+                    inputBerat = 2;
+                }
                 }else{
                     System.out.println("Harap masukkan berat cucian Anda dalam bentuk bilangan positif.");
                     }

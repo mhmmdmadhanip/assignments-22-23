@@ -109,13 +109,14 @@ public class MainMenu {
 
     private static void handleListNota() {
         String status;
+        System.out.println("Terdaftar "+notaList.length+" nota dalam sistem.");
         for(int i = 0; i < notaList.length; i++){
             if(!notaList[i].getIsReady()){
                 status = "Belum bisa diambil :(";
             }else{
                 status = "Sudah dapat diambil!";
             }
-            System.out.println("["+notaList[i].getIdNota()+"] Status      	: "+status);
+            System.out.println("- ["+notaList[i].getIdNota()+"] Status      	: "+status);
         }
     }
 
@@ -127,11 +128,52 @@ public class MainMenu {
     }
 
     private static void handleAmbilCucian() {
-        // TODO: handle ambil cucian
+        Nota[] tempNota = new Nota[notaList.length-1];
+        int indexTemp = 0;
+        System.out.println("Masukan ID Nota yang akan diambil:");
+        String strIdAmbil = input.nextLine();
+        while(!strIdAmbil.matches("\\d+")){
+            System.out.println("ID nota berbentuk angka!");
+            strIdAmbil = input.nextLine();
+        }
+        int idAmbil = Integer.parseInt(strIdAmbil);
+        boolean cekId = false;
+        int indexId = 0;
+        for(int i = 0; i < notaList.length; i++){
+            if(notaList[i].getIdNota() == idAmbil){
+                cekId = true;
+                indexId = i;
+                break;
+            }
+        }
+        if(cekId && notaList[indexId].getIsReady()){
+            System.out.println("Nota dengan ID "+notaList[indexId].getIdNota()+" berhasil diambil!");
+            for(int i = 0; i < notaList.length; i++){
+                if(notaList[i].getIdNota() != idAmbil){
+                    tempNota[indexTemp] = notaList[i];
+                    indexTemp++;
+                }
+            }
+            notaList = tempNota;
+        }else if(cekId && !notaList[indexId].getIsReady()){
+            System.out.println("Nota dengan ID "+notaList[indexId].getIdNota()+" gagal diambil!");
+        }else{
+            System.out.println("Nota dengan ID "+ idAmbil+" tidak ditemukan!");
+        }
     }
 
     private static void handleNextDay() {
-        // TODO: handle ganti hari
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+        System.out.println("Dek Depe tidur hari ini... zzz...");
+        for(int i = 0; i < notaList.length; i++){
+            notaList[i].kurangHari();
+            notaList[i].bisaAmbil();
+            if(notaList[i].getIsReady()){
+                System.out.println("Laundry dengan nota ID "+notaList[i].getIdNota()+" sudah dapat diambil!");
+            }
+        }
+        System.out.println("Selamat pagi dunia!");
+        System.out.println("Dek Depe: It's CuciCuci Time.");
     }
 
     private static void printMenu() {
@@ -151,12 +193,7 @@ public class MainMenu {
         //Membuat format tanggal terima dan tanggal selesai menjadi "dd/mm/yyyy"
         DateTimeFormatter formatDay = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate checkFormat = LocalDate.parse(tanggalTerima, formatDay);
-
-        //Apabila berat cucian kurang dari 2 maka akan dibulatkan menjadi 2 
-        if(berat < 2){
-            System.out.println("Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg");
-            berat = 2;
-        }
+        
         int hargaPaket = 0;
         String strSelesai = "";
         //Menyesuaikan harga dan lama hari selesai sesuai dengan paket yang dipilih
@@ -190,5 +227,4 @@ public class MainMenu {
         String finalReturn = idShow+paketShow+hargaShow+terimaDate+selesaiDate+status;
         return finalReturn;
     }
-
 }
