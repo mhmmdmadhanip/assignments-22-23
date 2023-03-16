@@ -12,7 +12,7 @@ public class Member {
         this.id = id;
         this.bonusCounter = bonusCounter;
     }
-
+    //membuat getter dan setter
     public String getNama(){
         return this.nama;
     }
@@ -25,6 +25,7 @@ public class Member {
     public int getBonusCounter(){
         return this.bonusCounter;
     }
+    //menambahkan bonus dan jika bonus sudah 3 akan direset kembali
     public void tambahBonus(){
         if(this.bonusCounter == 3){
             this.bonusCounter = 0;

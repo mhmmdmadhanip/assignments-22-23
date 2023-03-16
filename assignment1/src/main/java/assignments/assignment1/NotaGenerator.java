@@ -9,7 +9,7 @@ public class NotaGenerator {
     private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-            //membuat variabel baru untuk memulai program dengan while loop
+        //membuat variabel baru untuk memulai program dengan while loop
         boolean mulai = true;
         
         //memulai program
@@ -20,7 +20,7 @@ public class NotaGenerator {
             //menginitialize inputPilihan di luar try and catch
             String inputPilihan;
             //menggunakan try and catch untuk memvalidasi input di inputPilihan
-            try{
+
             inputPilihan = input.nextLine();
             System.out.println("================================");
             if(inputPilihan.equals("1")){//Apabila inputPilihan == 2 maka program akan menjalankan generateId
@@ -43,12 +43,6 @@ public class NotaGenerator {
             }else{//Apabila input berbentuk integer namun bukan 0, 1, atau 2 maka kondisi ini akan dijalankan
                 System.out.println("Perintah tidak diketahui, silakan periksa kembali.");
             }
-            }
-            //Apabila input yang dimasukkan di dalam inputPilihan bukan integer maka kondisi ini akan dijalankan
-            catch(Exception MismatchInputException){
-                System.out.println("Perintah tidak diketahui, silakan periksa kembali.");
-                input.nextLine();//menggunakan input.nextLine agar loop tetap berjalan setelah catch
-            }            
         }
         
     }
@@ -109,7 +103,7 @@ public class NotaGenerator {
     //Method untuk memvalidasi tipe paket yang ingin digunakan
     public static String cekPaket(){
         System.out.println("Masukkan paket laundry:");
-        String inputPaket = input.next();
+        String inputPaket = input.nextLine();
         boolean cekPaket;
         //Apabila inputPaket tidak sesuai dengan yang diminta maka akan masuk ke dalam while loop
         if(inputPaket.equalsIgnoreCase("express") ||
@@ -124,7 +118,7 @@ public class NotaGenerator {
             if(inputPaket.equalsIgnoreCase("?")){
                 showPaket();
                 System.out.println("Masukkan paket laundry:");
-                inputPaket = input.next();
+                inputPaket = input.nextLine();
             }else if(inputPaket.equalsIgnoreCase("express") ||
             inputPaket.equalsIgnoreCase("fast") ||
             inputPaket.equalsIgnoreCase("reguler")){//Apabila input sudah benar maka program akan keluar dari while loop
@@ -133,7 +127,7 @@ public class NotaGenerator {
                 System.out.println("Paket "+inputPaket+" tidak diketahui");
                 System.out.println("[ketik ? untuk mencari tahu jenis paket]");
                 System.out.println("Masukkan paket laundry:");
-                inputPaket = input.next();
+                inputPaket = input.nextLine();
             }
             }
         return inputPaket;
@@ -151,7 +145,7 @@ public class NotaGenerator {
             //Apabila inputBerat sudah valid maka program akan keluar dari while loop
             if(inputBerat > 0){
                 cekBerat = false;
-                if(inputBerat < 2){
+                if(inputBerat < 2 && inputBerat > 0){
                     System.out.println("Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg");
                     inputBerat = 2;
                 }
@@ -186,10 +180,10 @@ public class NotaGenerator {
         for(int i = 0; i < finalName.length();i ++){
             if(asciiName[i] == 32){//Apabila ada spasi maka program loop akan dibreak
                 break;
-            }else if(asciiName[i] < 97 || asciiName[i] > 122){//Apabila nama dalam bentuk simbol maka kondisi ini akan dijalankan
-                asciiName[i] = 7;
-            }else if(asciiName[i] > 47 && asciiName[i] <58 ){//Apabila nama dalam bentuk angka maka kondisi ini akan dijalankan
+            }else if(asciiName[i] > 47 && asciiName[i] <58){//Apabila nama dalam bentuk simbol maka kondisi ini akan dijalankan
                 asciiName[i] -= 48;
+            }else if(asciiName[i] <97 || asciiName[i] >122 ){//Apabila nama dalam bentuk angka maka kondisi ini akan dijalankan
+                asciiName[i] = 7;
             }else{//Apabila nama berbentuk huruf maka kondisi ini akan dijalankan
                 asciiName[i]-=96;
             }

@@ -19,6 +19,7 @@ public class Nota {
         this.isReady = isReady;
     }
 
+    //membuat getter dan setter
     public Member getMember(){
         return this.member;
     }
@@ -40,11 +41,13 @@ public class Nota {
     public boolean getIsReady(){
         return this.isReady;
     }
+    //membuat method untuk mengurangi hari
     public void kurangHari(){
         if(this.sisaHariPengerjaan != 0){
             this.sisaHariPengerjaan--;
         }
     }
+    //mengecek apakah laundry sudah bisa diambil atau belum
     public void bisaAmbil(){
         if(this.sisaHariPengerjaan == 0){
             this.isReady = true;
