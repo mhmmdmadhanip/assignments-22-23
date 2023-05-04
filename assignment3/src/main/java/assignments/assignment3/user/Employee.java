@@ -14,7 +14,6 @@ public class Employee extends Member {
      * @param nama -> Nama lengkap dari employee
      */
     private static String generateId(String nama) {
-        // TODO
         int indexSpace = nama.indexOf(" "); 
         String finalName = "" ;
         if(indexSpace != -1){

@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import assignments.assignment3.nota.service.AntarService;
+import assignments.assignment3.nota.service.CuciService;
 import assignments.assignment3.nota.service.LaundryService;
 import assignments.assignment3.nota.service.SetrikaService;
 import assignments.assignment3.user.Member;
@@ -20,6 +21,8 @@ public class Nota {
     static public int totalNota;
     private long tempHarga;
     private long totalHarga;
+    private int hariKeterlambatan;
+    private boolean terlambat = true;
 
     public Nota(Member member, int berat, String paket, String tanggal) {
         this.member = member;
@@ -34,11 +37,46 @@ public class Nota {
     }
 
     public String kerjakan(){
-        // TODO
+        for (int i = 0; i < services.length; i++) {
+            LaundryService service = services[i];
+            String printNota = "Nota "+ id +" : ";
+            if(service instanceof CuciService){
+                if(!service.isDone()){
+                    System.out.println(printNota + service.doWork());
+                    break;
+                }else{
+                    continue;
+                }
+            }else if (service instanceof SetrikaService){
+                if(!service.isDone()){
+                    System.out.println(printNota + service.doWork());
+                    break;
+                }else{
+                    continue;
+                }
+            }else if (service instanceof AntarService){
+                if(!service.isDone()){
+                    System.out.println(printNota + service.doWork());
+                    break;
+                }else{
+                    System.out.println(getNotaStatus());
+                }
+            }
+        }
         return "";
     }
     public void toNextDay() {
-        // TODO
+        if(sisaHariPengerjaan > 0){
+            sisaHariPengerjaan--;
+        }else{
+            for (int i = 0; i < services.length; i++) {
+                if(!services[i].isDone()){
+                    terlambat = false;
+                    hariKeterlambatan++;
+                    break;
+                }
+            }
+        }
     }
 
     public long calculateHarga(){
@@ -55,6 +93,9 @@ public class Nota {
             if(services[i] instanceof SetrikaService || services[i] instanceof AntarService){
                 totalHarga += services[i].getHarga(berat);
             }
+        }
+        if(hariKeterlambatan > 0 && !terlambat){
+            totalHarga -= (hariKeterlambatan*2000);
         }
         return totalHarga;
     }
@@ -74,7 +115,12 @@ public class Nota {
     }
 
     public String getNotaStatus(){
-        return "";
+        for (int i = 0; i < services.length; i++) {
+            if(!services[i].isDone()){
+                return "Nota " + id + " : Belum selesai.";
+            }
+        }
+        return "Nota " + id + " : Sudah selesai.";
     }
 
     @Override
@@ -94,16 +140,23 @@ public class Nota {
             LocalDate tanggalSelesai = checkFormat.plusDays(3);
             strSelesai = tanggalSelesai.format(formatDay);
         }
-        String strServices = "";
+        String strServices = "\n--- SERVICE LIST ---\n";
+        String serviceStr = "";
         for (int i = 0; i < services.length; i++) {
-            strServices = strServices + "-" + services[i].getServiceName() + " @ Rp." + services[i].getHarga(berat) + "\n";
+            serviceStr = "-" + services[i].getServiceName() + " @ Rp." + services[i].getHarga(berat) + "\n";
+            serviceStr += serviceStr;
+        }
+        strServices = strServices + serviceStr;
+        String hargaAkhir = "Harga Akhir: " + totalHarga;
+        if(hariKeterlambatan > 0){
+            hargaAkhir = hargaAkhir + " Ada kompensasi keterlambatan " + hariKeterlambatan + " * 2000 hari"; 
         }
         return "[ID Nota = "+ id + "]\nID    : " + member.getId()+
         "\nPaket : " + paket + "\nHarga :\n"+
         berat + " kg x " + baseHarga + " = "+
         tempHarga + "\ntanggal terima  : " + tanggalMasuk +
-        "\ntanggal selesai : " + strSelesai + "\n--- SERVICE LIST ---\n" +
-        strServices + "Harga Akhir: " + totalHarga;
+        "\ntanggal selesai : " + strSelesai +
+        strServices + hargaAkhir;
     }
 
     // Dibawah ini adalah getter
@@ -129,5 +182,9 @@ public class Nota {
 
     public LaundryService[] getServices(){
         return services;
+    }
+
+    public int getId(){
+        return id;
     }
 }

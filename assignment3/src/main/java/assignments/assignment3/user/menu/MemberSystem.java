@@ -100,8 +100,12 @@ public class MemberSystem extends SystemCLI {
         while(cekPaket){
             //Apabila inputPaket == ? maka akan menampilkan tipe paket 
             if(inputPaket.equalsIgnoreCase("?")){
-                showPaket();
                 System.out.println("Masukkan paket laundry:");
+                System.out.println("+-------------Paket-------------+");
+                System.out.println("| Express | 1 Hari | 12000 / Kg |");
+                System.out.println("| Fast    | 2 Hari | 10000 / Kg |");
+                System.out.println("| Reguler | 3 Hari |  7000 / Kg |");
+                System.out.println("+-------------------------------+");
                 inputPaket = super.in.nextLine();
             }else if(inputPaket.equalsIgnoreCase("express") ||
             inputPaket.equalsIgnoreCase("fast") ||

@@ -2,10 +2,6 @@ package assignments.assignment3.user.menu;
 
 import assignments.assignment3.nota.Nota;
 import assignments.assignment3.nota.NotaManager;
-import assignments.assignment3.nota.service.AntarService;
-import assignments.assignment3.nota.service.CuciService;
-import assignments.assignment3.nota.service.LaundryService;
-import assignments.assignment3.nota.service.SetrikaService;
 import assignments.assignment3.user.Employee;
 import assignments.assignment3.user.Member;
 
@@ -34,7 +30,6 @@ public class EmployeeSystem extends SystemCLI {
     @Override
     protected boolean processChoice(int choice) {
         boolean logout = false;
-        // TODO:
         if(choice == 1){
             doLaundry();
         }else if(choice == 2){
@@ -56,73 +51,17 @@ public class EmployeeSystem extends SystemCLI {
     }
 
     private void doLaundry(){
-        int idNota = 0;
         System.out.println("Stand back! " + super.loginMember.getNama() + " beginning to nyuci!");
         for (int i = 0; i < NotaManager.notaList.length; i++) {
-            String printNota = "Nota "+ idNota +" : ";
-            for (int j = 0; j < NotaManager.notaList[i].getServices().length; j++) {
-                LaundryService service = NotaManager.notaList[i].getServices()[j];
-                if(service instanceof CuciService){
-                    if(!service.isDone()){
-                        System.out.println(printNota + service.doWork());
-                        break;
-                    }else{
-                        continue;
-                    }
-                }else if (service instanceof SetrikaService){
-                    if(!service.isDone()){
-                        System.out.println(printNota + service.doWork());
-                        break;
-                    }else{
-                        continue;
-                    }
-                }else if (service instanceof AntarService){
-                    if(!service.isDone()){
-                        System.out.println(printNota + service.doWork());
-                        break;
-                    }else{
-                        System.out.println(printNota + " Sudah selesai.");
-                    }
-                }
-
-            }
-            
-            idNota++;
+            System.out.print(NotaManager.notaList[i].kerjakan());
         }
-        System.out.println();
     }
 
     private void displayNota(){
-        int idNota = 0;
         for (int i = 0; i < NotaManager.notaList.length; i++) {
-            String printNota = "Nota "+ idNota +" : ";
-            for (int j = 0; j < NotaManager.notaList[i].getServices().length; j++) {
-                LaundryService service = NotaManager.notaList[i].getServices()[j];
-                if(service instanceof CuciService){
-                    if(!service.isDone()){
-                        System.out.println(printNota + "Belum selesai.");
-                        break;
-                    }else{
-                        continue;
-                    }
-                }else if (service instanceof SetrikaService){
-                    if(!service.isDone()){
-                        System.out.println(printNota + "Belum selesai.");
-                        break;
-                    }else{
-                        continue;
-                    }
-                }else if (service instanceof AntarService){
-                    if(!service.isDone()){
-                        System.out.println(printNota + "Belum selesai.");
-                        break;
-                    }else{
-                        System.out.println(printNota + " Sudah selesai.");
-                    }
-                }
-
-            }
-            idNota++;
+            System.out.println(NotaManager.notaList[i].getNotaStatus());
         }
+        System.out.println();
     }
+    
 }

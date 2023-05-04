@@ -13,7 +13,10 @@ public class NotaManager {
      * Skips ke hari berikutnya dan update semua entri nota yang sesuai.
      */
     public static void toNextDay(){
-        //TODO: implement skip hari
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+        for (int i = 0; i < notaList.length; i++) {
+            notaList[i].toNextDay();
+        }
     }
 
     /**

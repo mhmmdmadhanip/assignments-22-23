@@ -55,7 +55,7 @@ public class MainMenu {
      * Skips ke hari selanjutnya dan mengupdate sistem.
      */
     private void toNextDay() {
-        System.out.println("Kamu tidur hari ini... zzz...");
+        System.out.println("Kamu tidur hari ini... zzz...\n");
         NotaManager.toNextDay();
     }
 

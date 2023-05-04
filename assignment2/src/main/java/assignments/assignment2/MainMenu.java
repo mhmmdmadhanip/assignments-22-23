@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static assignments.assignment1.NotaGenerator.*;
 import assignments.assignment1.NotaGenerator;
 
 public class MainMenu {
