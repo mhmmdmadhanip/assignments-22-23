@@ -1,6 +1,7 @@
 package assignments.assignment3.nota;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class NotaManager {
@@ -21,6 +22,8 @@ public class NotaManager {
      * @param nota Nota object untuk ditambahkan.
      */
     public static void addNota(Nota nota){
-        //TODO: implement add nota
+        notaList = Arrays.copyOf(notaList, notaList.length+1);
+        notaList[notaList.length-1] = nota;
     }
+
 }

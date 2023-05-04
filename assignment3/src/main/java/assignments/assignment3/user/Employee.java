@@ -15,6 +15,16 @@ public class Employee extends Member {
      */
     private static String generateId(String nama) {
         // TODO
-        return "";
+        int indexSpace = nama.indexOf(" "); 
+        String finalName = "" ;
+        if(indexSpace != -1){
+        finalName = nama.substring(0, indexSpace);
+        }else{
+            finalName = nama;
+        }
+        finalName = finalName.toUpperCase();
+        finalName = finalName + "-" + employeeCount;
+        employeeCount++;
+        return finalName;
     }
 }
