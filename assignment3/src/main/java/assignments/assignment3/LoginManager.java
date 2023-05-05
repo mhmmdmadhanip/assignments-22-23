@@ -40,9 +40,11 @@ public class LoginManager {
      * @return Member object yang berhasil mendaftar, return null jika gagal mendaftar.
      */
     public Member register(String nama, String noHp, String password) {
+        //generate id member dan mengecek apakah member sudah ada atau belum
         String idMember = NotaGenerator.generateId(nama, noHp);
         boolean isExist = memberSystem.isMemberExist(idMember);
 
+        //membuat objek member jika member belum ada
         if(!isExist){
         Member memberBaru = new Member(nama, idMember, password);
         memberSystem.addMember(memberBaru);

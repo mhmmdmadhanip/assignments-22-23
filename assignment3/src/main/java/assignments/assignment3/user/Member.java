@@ -32,6 +32,7 @@ public class Member {
      * @param nota Nota object untuk ditambahkan.
      */
     public void addNota(Nota nota) {
+        //memasukkan nota ke dalam array nota
         notaList = Arrays.copyOf(notaList, notaList.length+1);
         notaList[notaList.length-1] = nota;
     }
@@ -43,6 +44,7 @@ public class Member {
      * @return true jika ID dan password sesuai dengan instance member, false jika tidak.
      */
     protected boolean authenticate(String password) {
+        //cek password sama atau tidak
         if(this.password.equals(password)){
             return true;
         }

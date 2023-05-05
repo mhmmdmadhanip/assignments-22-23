@@ -24,6 +24,7 @@ public class MemberSystem extends SystemCLI {
     @Override
     protected boolean processChoice(int choice) {
         boolean logout = false;
+        //menentukan menu sesuai pilihan
         if(choice == 1){
             doLaundry();
         }else if(choice ==2){
@@ -50,26 +51,31 @@ public class MemberSystem extends SystemCLI {
      * @param member -> Member baru yang akan ditambahkan.
      */
     public void addMember(Member member) {
+        //menambahkan member ke dalam array member
         memberList = Arrays.copyOf(memberList, memberList.length+1);
         memberList[memberList.length-1] = member;
     }
 
 
     private void doLaundry (){
-        String paket = showPaket();
-        int berat = NotaGenerator.cekBerat();
+        String paket = showPaket(); //meminta input paket
+        int berat = NotaGenerator.cekBerat(); //meminta input berat menggunakan method di TP 1
+        //meminta input service setrika
         System.out.println("Apakah kamu ingin cucianmu disetrika oleh staff professional kami?\nHanya tambah 1000 / kg :0");
         System.out.print("[Ketik x untuk tidak mau]: ");
         String setrika = super.in.nextLine();
+        //meminta input service antar
         System.out.println("Mau diantar oleh kurir kami? Dijamin aman dan cepat sampai tujuan!\nCuma 2000 / 4kg, kemudian 500 / kg");
         System.out.print("[Ketik x untuk tidak mau]: ");
         String antarLaundry = super.in.nextLine();
         System.out.println("Nota berhasil dibuat!\n");
+        //membuat objek nota dan set attribute nota
         Nota notaLaundry = new Nota(super.loginMember, berat, paket, fmt.format(cal.getTime()));
-        super.loginMember.addNota(notaLaundry);
+        super.loginMember.addNota(notaLaundry); //menambahkan nota ke dalam array nota yang ada di class member
         notaLaundry.setSisaHariPengerjaan(paket);
         notaLaundry.setIdNota(idNota);
         idNota++;
+        //membuat objek service
         LaundryService cuciService = new CuciService();
         notaLaundry.addService(cuciService);
         if(!setrika.equals("x")){
@@ -80,9 +86,10 @@ public class MemberSystem extends SystemCLI {
             LaundryService antarService = new AntarService();
             notaLaundry.addService(antarService);
         }
-        NotaManager.addNota(notaLaundry);
+        NotaManager.addNota(notaLaundry); //menambahkan nota ke dalam array nota yang ada di class NotaManager
     }
 
+    //sama dengan method di TP1 
     private String showPaket() {
         System.out.println("Masukan paket laundry:");
         System.out.println("+-------------Paket-------------+");
@@ -122,6 +129,7 @@ public class MemberSystem extends SystemCLI {
     }
 
     private void displayNota(){
+        //print semua nota yang dimiliki member
         for (int i = 0; i < super.loginMember.getNotaList().length; i++) {
             System.out.println(super.loginMember.getNotaList()[i]+"\n");
         }

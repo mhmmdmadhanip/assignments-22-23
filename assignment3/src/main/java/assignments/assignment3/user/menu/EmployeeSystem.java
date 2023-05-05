@@ -30,6 +30,7 @@ public class EmployeeSystem extends SystemCLI {
     @Override
     protected boolean processChoice(int choice) {
         boolean logout = false;
+        //menentukan menu sesuai pilihan
         if(choice == 1){
             doLaundry();
         }else if(choice == 2){
@@ -52,12 +53,15 @@ public class EmployeeSystem extends SystemCLI {
 
     private void doLaundry(){
         System.out.println("Stand back! " + super.loginMember.getNama() + " beginning to nyuci!");
+        //print semua nota dan service yang sesuai
         for (int i = 0; i < NotaManager.notaList.length; i++) {
             System.out.print(NotaManager.notaList[i].kerjakan());
         }
+        System.out.println();
     }
 
     private void displayNota(){
+        //menampilkan semua nota yang ada dan statusnya
         for (int i = 0; i < NotaManager.notaList.length; i++) {
             System.out.println(NotaManager.notaList[i].getNotaStatus());
         }

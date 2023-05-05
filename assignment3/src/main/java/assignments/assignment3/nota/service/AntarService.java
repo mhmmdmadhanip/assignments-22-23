@@ -4,7 +4,7 @@ public class AntarService implements LaundryService{
     protected boolean statusAntar = false;
     @Override
     public String doWork() {
-        statusAntar = true;
+        statusAntar = true; //mengubah status Antar
         return "Sedang mengantar...";
     }
 

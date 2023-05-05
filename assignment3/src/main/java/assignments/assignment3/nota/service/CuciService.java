@@ -4,7 +4,7 @@ public class CuciService implements LaundryService{
     protected boolean statusCuci = false;
     @Override
     public String doWork() {
-        statusCuci = true;
+        statusCuci = true; //mengubah status Cuci
         return "Sedang mencuci...";
     }
 

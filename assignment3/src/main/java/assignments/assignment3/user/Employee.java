@@ -14,6 +14,7 @@ public class Employee extends Member {
      * @param nama -> Nama lengkap dari employee
      */
     private static String generateId(String nama) {
+        //mengambil kata depan dan mengubah menjadi kapital
         int indexSpace = nama.indexOf(" "); 
         String finalName = "" ;
         if(indexSpace != -1){
@@ -22,6 +23,7 @@ public class Employee extends Member {
             finalName = nama;
         }
         finalName = finalName.toUpperCase();
+        //membuat id
         finalName = finalName + "-" + employeeCount;
         employeeCount++;
         return finalName;

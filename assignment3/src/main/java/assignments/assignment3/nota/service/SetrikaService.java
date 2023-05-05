@@ -5,7 +5,7 @@ public class SetrikaService implements LaundryService{
 
     @Override
     public String doWork() {
-        statusSetrika = true;
+        statusSetrika = true; //mengubah status Setrika
         return "Sedang menyetrika...";
     }
 
