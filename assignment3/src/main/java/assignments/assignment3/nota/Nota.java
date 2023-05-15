@@ -15,7 +15,7 @@ public class Nota {
     private long baseHarga;
     private int sisaHariPengerjaan;
     private  int berat;
-    private int id;
+    private int id = totalNota++;
     private String tanggalMasuk;
     private boolean isDone;
     static public int totalNota;
@@ -46,25 +46,22 @@ public class Nota {
             String printNota = "Nota "+ id +" : ";
             if(service instanceof CuciService){
                 if(!service.isDone()){
-                    System.out.println(printNota + service.doWork());
                     cekStatus = false;
-                    break;
+                    return (printNota + service.doWork());
                 }else{
                     continue;
                 }
             }else if (service instanceof SetrikaService){
                 if(!service.isDone()){
-                    System.out.println(printNota + service.doWork());
                     cekStatus = false;
-                    break;
+                    return (printNota + service.doWork());
                 }else{
                     continue;
                 }
             }else if (service instanceof AntarService){
                 if(!service.isDone()){
-                    System.out.println(printNota + service.doWork());
                     cekStatus = false;
-                    break;
+                    return (printNota + service.doWork());
                 }else{
                     continue;
                 }
@@ -72,7 +69,7 @@ public class Nota {
         }
         //jika semua service sudah selesai maka akan mereturn status laundry
         if(cekStatus){
-            return getNotaStatus() + "\n";
+            return getNotaStatus();
         }
         return "";
     }

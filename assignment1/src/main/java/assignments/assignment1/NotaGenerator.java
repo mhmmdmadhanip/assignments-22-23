@@ -164,6 +164,7 @@ public class NotaGenerator {
 
     //Method untuk memberikan return ID
     public static String generateId(String nama, String nomorHP){
+        nama = nama.trim();
         int indexSpace = nama.indexOf(" "); 
         String finalName = "" ;
         if(indexSpace != -1){
