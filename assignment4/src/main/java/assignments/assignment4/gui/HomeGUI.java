@@ -40,22 +40,24 @@ public class HomeGUI extends JPanel {
      * Be creative and have fun!
      * */
     private void initGUI() {
+        //init gbc
         GridBagConstraints grid = new GridBagConstraints();
         grid.anchor = GridBagConstraints.NORTH;
         grid.weightx = 1.0;
         grid.weighty = 1.0;
         grid.fill = GridBagConstraints.NONE;
 
+        //set semua label dan button. Menambahkan label dan button ke mainpanel dan merubah gridy setiap kali menambahkan sesuatu
         titleLabel = new JLabel("Selamat datang di CuciCuci System!");
         grid.gridy = 0;
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); //set font
         mainPanel.add(titleLabel, grid);
 
         loginButton = new JButton("Login");
         grid.gridy = 1;
-        grid.anchor = GridBagConstraints.CENTER;
+        grid.anchor = GridBagConstraints.CENTER; //mengubah anchor ke center
         mainPanel.add(loginButton, grid);
-        loginButton.addActionListener(new ActionListener(){
+        loginButton.addActionListener(new ActionListener(){ //add action listner untuk login button
             public void actionPerformed(ActionEvent e){
                 handleToLogin();
             }
@@ -64,7 +66,7 @@ public class HomeGUI extends JPanel {
         registerButton = new JButton ("Register");
         grid.gridy = 2;
         mainPanel.add(registerButton, grid);
-        registerButton.addActionListener(new ActionListener(){
+        registerButton.addActionListener(new ActionListener(){ //add action listener untuk register button
             public void actionPerformed(ActionEvent e){
                 handleToRegister();
             }
@@ -74,7 +76,7 @@ public class HomeGUI extends JPanel {
         grid.gridy = 3;
         mainPanel.add(toNextDayButton, grid);
 
-        toNextDayButton.addActionListener(new ActionListener(){
+        toNextDayButton.addActionListener(new ActionListener(){ //add action listener untuk to next day
             public void actionPerformed(ActionEvent e){
                 handleNextDay();
             }
@@ -82,7 +84,7 @@ public class HomeGUI extends JPanel {
 
         dateLabel = new JLabel("Hari ini: " + fmt.format(cal.getTime()));
         grid.gridy = 4;
-        grid.anchor = GridBagConstraints.SOUTH;
+        grid.anchor = GridBagConstraints.SOUTH; //set anchor ke south
         mainPanel.add(dateLabel, grid);
         
     }
@@ -92,7 +94,7 @@ public class HomeGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "registerButton"
      * */
     private static void handleToRegister() {
-        MainFrame.getInstance().navigateTo("REGISTER");
+        MainFrame.getInstance().navigateTo("REGISTER"); //pergi ke register panel
     }
     
     /**
@@ -100,7 +102,7 @@ public class HomeGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "loginButton"
      * */
     private static void handleToLogin() {
-        MainFrame.getInstance().navigateTo("LOGIN");
+        MainFrame.getInstance().navigateTo("LOGIN"); //pergi ke login panel
     }
 
     /**
@@ -108,7 +110,8 @@ public class HomeGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "toNextDayButton"
      * */
     private void handleNextDay() {
-        toNextDay();
+        toNextDay(); //memanggil method nextday di tp 3
+        //set tanggal dan menampilkan option pane
         dateLabel.setText("Hari ini: " + fmt.format(cal.getTime()));
         JOptionPane.showMessageDialog(null, "Kamu tidur hari ini... zzz..", "This is Prince Paul's Bubble Party's abilitiy!", JOptionPane.INFORMATION_MESSAGE);
     }

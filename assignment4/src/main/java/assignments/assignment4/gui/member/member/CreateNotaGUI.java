@@ -144,22 +144,26 @@ public class CreateNotaGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "createNotaButton"
      * */
     private void createNota() {
-        // TODO
+        // cek berat
         if(!beratTextField.getText().matches("\\d+")){
             JOptionPane.showMessageDialog(null, "Berat Cucian harus berisi angka", "Error", JOptionPane.ERROR_MESSAGE);
             beratTextField.setText("");
         }else{
+            //mengubah berat ke int
             int berat  = Integer.parseInt(beratTextField.getText());
-            if(berat == 0){
-                JOptionPane.showMessageDialog(null, "Berat Cucian harus berisi angka", "Error", JOptionPane.ERROR_MESSAGE);
+            if(berat == 0){ //berat bukan bilangan bulat positif, return untuk memberhentikan method
+                JOptionPane.showMessageDialog(this, "Berat Cucian harus berisi angka", "Error", JOptionPane.ERROR_MESSAGE);
                 beratTextField.setText("");
                 return;
             }else if(berat > 0 && berat < 2){
-                JOptionPane.showMessageDialog(null, "Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg", "Info", JOptionPane.INFORMATION_MESSAGE);
+                //berat kurang dari 2
+                JOptionPane.showMessageDialog(this, "Cucian kurang dari 2 kg, maka cucian akan dianggap sebagai 2 kg", "Info", JOptionPane.INFORMATION_MESSAGE);
                 berat = 2;
             }
+            //buat nota baru dan set attribte
             Nota notaBaru = new Nota(memberSystemGUI.getLoggedInMember(), berat, (String) paketComboBox.getSelectedItem(), fmt.format(cal.getTime()));
             notaBaru.setSisaHariPengerjaan((String)paketComboBox.getSelectedItem());
+            //add semua service
             LaundryService cuciService = new CuciService();
             notaBaru.addService(cuciService);
             if(setrikaCheckBox.isSelected()){
@@ -170,10 +174,12 @@ public class CreateNotaGUI extends JPanel {
                 LaundryService antarService = new AntarService();
                 notaBaru.addService(antarService);
             }
+            //add nota ke nota list member dan nota manager
             memberSystemGUI.getLoggedInMember().addNota(notaBaru);
             NotaManager.addNota(notaBaru);
 
-            int res = JOptionPane.showOptionDialog(null, "Nota berhasil dibuat!", "Success", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            //set semua field menjadi kosong setelah dipencet ok
+            int res = JOptionPane.showOptionDialog(this, "Nota berhasil dibuat!", "Success", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
             if (res == 0){
                 beratTextField.setText("");
                 setrikaCheckBox.setSelected(false);
@@ -188,7 +194,7 @@ public class CreateNotaGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "backButton"
      * */
     private void handleBack() {
-        // TODO
+        // menuju member gui dan set semua field menjadi kosong
         MainFrame.getInstance().navigateTo("MEMBER");
         beratTextField.setText("");
         setrikaCheckBox.setSelected(false);

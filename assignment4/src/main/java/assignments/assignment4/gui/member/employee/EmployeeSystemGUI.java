@@ -30,7 +30,7 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * */
     @Override
     protected JButton[] createButtons() {
-        // TODO
+        // buat button
         return new JButton[]{
             new JButton("It's nyuci time"),
             new JButton("Display List Nota")
@@ -56,17 +56,20 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button pertama pada createButtons
      * */
     private void displayNota() {
-        // TODO
-        if(NotaManager.notaList.length == 0){
-            JOptionPane.showMessageDialog(null, "Belum ada nota", "List Nota", JOptionPane.ERROR_MESSAGE);
-        }else{
+        // cek panjang nota
+        if(NotaManager.notaList.length == 0){ //panjang nota 0
+            JOptionPane.showMessageDialog(this, "Belum ada nota", "List Nota", JOptionPane.ERROR_MESSAGE);
+        }else{ 
+            //menambahkan status tiap nota 
             String result = "<html><pre>";
             for(Nota nota:NotaManager.notaList){
                 result += nota.getNotaStatus() + "<br>";
             }
-                result += "</pre></html>";
-                JLabel labelResult = new JLabel(result);
-                JOptionPane.showMessageDialog(this, labelResult, "Paket Information", JOptionPane.INFORMATION_MESSAGE);
+            //menutup tag html
+            result += "</pre></html>";
+            //menampilkan hasil
+            JLabel labelResult = new JLabel(result);
+            JOptionPane.showMessageDialog(this, labelResult, "Paket Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -75,16 +78,18 @@ public class EmployeeSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button kedua pada createButtons
      * */
     private void cuci() {
-        // TODO
-        JOptionPane.showMessageDialog(null, "Stand back! "+ loggedInMember.getNama() + " beginning to nyuci!", "Nyuci Time", JOptionPane.INFORMATION_MESSAGE);
-        if(NotaManager.notaList.length == 0){
-            JOptionPane.showMessageDialog(null, "nothing to cuci here", "Nyuci Results", JOptionPane.ERROR_MESSAGE);
+        // menampilkan pane
+        JOptionPane.showMessageDialog(this, "Stand back! "+ loggedInMember.getNama() + " beginning to nyuci!", "Nyuci Time", JOptionPane.INFORMATION_MESSAGE);
+        if(NotaManager.notaList.length == 0){ //tidak ada nota 
+            JOptionPane.showMessageDialog(this, "nothing to cuci here", "Nyuci Results", JOptionPane.ERROR_MESSAGE);
         }else{
+            //mengerjakan nota yang ada
             String result = "<html><pre>";
             for(Nota nota:NotaManager.notaList){
                 result += nota.kerjakan() + "<br>";
             }
-            result += "</pre></html>";
+            result += "</pre></html>"; //menutup tag html
+            //menampilkan hasil
             JLabel labelResult = new JLabel(result);
             JOptionPane.showMessageDialog(this, labelResult, "Paket Information", JOptionPane.INFORMATION_MESSAGE);
         }

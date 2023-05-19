@@ -84,7 +84,7 @@ public class MainFrame extends JFrame{
      * @param page -> key dari halaman yang diinginkan.
      * */
     public void navigateTo(String page){
-        // TODO
+        // menampilkan panel yang sesuai
         cards.show(mainPanel, page);
     }
 
@@ -101,7 +101,7 @@ public class MainFrame extends JFrame{
     public boolean login(String id, String password){
         for (Loginable panel:
                 loginablePanel) {
-            // TODO
+            // memanggil method login di abstract member dan akan return true saat berhasil login
             if(panel.login(id, password)){
                 return true;
             }

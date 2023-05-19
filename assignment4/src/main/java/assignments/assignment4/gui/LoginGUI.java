@@ -41,19 +41,20 @@ public class LoginGUI extends JPanel {
      * Be creative and have fun!
      * */
     private void initGUI() {
-        // TODO
+        // init gui
         GridBagConstraints grid = new GridBagConstraints();
         grid.anchor = GridBagConstraints.NORTHWEST;
         grid.weightx = 1.0;
         grid.weighty = 1.0;
         grid.fill = GridBagConstraints.NONE;
 
+        //set semua label, field, dan button. Add nilai gridy setelah menambahkan ke panel
         idLabel = new JLabel("Masukan ID Anda:");
         grid.gridy = 0;
         mainPanel.add(idLabel, grid);
 
         idTextField = new JTextField();
-        idTextField.setPreferredSize(new Dimension(650, 20));
+        idTextField.setPreferredSize(new Dimension(650, 20)); //set size field
         grid.gridy = 1;
         mainPanel.add(idTextField, grid);
 
@@ -62,16 +63,16 @@ public class LoginGUI extends JPanel {
         mainPanel.add(passwordLabel, grid);
 
         passwordField = new JPasswordField();
-        passwordField.setPreferredSize(new Dimension(650, 20));
+        passwordField.setPreferredSize(new Dimension(650, 20)); //set size field
         grid.gridy = 3;
         mainPanel.add(passwordField, grid);
 
-        grid.anchor = GridBagConstraints.CENTER;
+        grid.anchor = GridBagConstraints.CENTER; //set anchor kembali ke center
         
         loginButton = new JButton("Login");
         grid.gridy = 4;
         mainPanel.add(loginButton, grid);
-        loginButton.addActionListener(new ActionListener(){
+        loginButton.addActionListener(new ActionListener(){ //add listener login button
             public void actionPerformed(ActionEvent e){
                 handleLogin();
             }
@@ -80,7 +81,7 @@ public class LoginGUI extends JPanel {
         backButton = new JButton("Kembali");
         grid.gridy = 5;
         mainPanel.add(backButton, grid);
-        backButton.addActionListener(new ActionListener(){
+        backButton.addActionListener(new ActionListener(){ //add listener back button
             public void actionPerformed(ActionEvent e){
                 handleBack();
             }
@@ -92,6 +93,7 @@ public class LoginGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "backButton"
      * */
     private void handleBack() {
+        //kembali ke home page dan mengosongkan field
         MainFrame.getInstance().navigateTo("HOME");
         idTextField.setText("");
         passwordField.setText("");
@@ -102,47 +104,26 @@ public class LoginGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "loginButton"
      * */
     private void handleLogin() {
-        // TODO
+        // cek login 
         boolean cekLogin = MainFrame.getInstance().login(idTextField.getText(), new String(passwordField.getPassword()));
         if(cekLogin){
+            //menentukan employee atau member yang login
             SystemCLI memberCek = loginManager.getSystem(idTextField.getText());
             if(memberCek instanceof MemberSystem){
                 MainFrame.getInstance().navigateTo("MEMBER");
             }else if(memberCek instanceof EmployeeSystem){
                 MainFrame.getInstance().navigateTo("EMPLOYEE");
             }
+            //set field menjadi kosong
             idTextField.setText("");
             passwordField.setText("");
         }else{
-            int res = JOptionPane.showOptionDialog(null, "ID atau password invalid.", "Invalid ID or Password", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE, null, null, null);
+            //saat ok dipencet field akan kosong
+            int res = JOptionPane.showOptionDialog(this, "ID atau password invalid.", "Invalid ID or Password", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE, null, null, null);
             if (res == 0){
                 idTextField.setText("");
                 passwordField.setText("");
             }
         }
-        // SystemCLI memberCek = loginManager.getSystem(idTextField.getText());
-        // if(memberCek == null){
-            // int res = JOptionPane.showOptionDialog(null, "ID atau password invalid.", "Invalid ID or Password", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE, null, null, null);
-            // if (res == 0){
-            //     idTextField.setText("");
-            //     passwordField.setText("");
-        //     }
-        // }else{
-        //     Member memberLogin = memberCek.authUser(idTextField.getText(),new String (passwordField.getPassword()));
-        //     System.out.println(memberCek.getClass());
-        //     if(memberLogin != null){
-        //         if(memberCek instanceof MemberSystem){
-        //             MainFrame.getInstance().navigateTo("MEMBER");
-        //         }else if(memberCek instanceof EmployeeSystem){
-        //             MainFrame.getInstance().navigateTo("EMPLOYEE");
-        //         }
-        //     }else{
-        //         int res = JOptionPane.showOptionDialog(null, "ID atau password invalid.", "Invalid ID or Password", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE, null, null, null);
-        //         if (res == 0){
-        //             idTextField.setText("");
-        //             passwordField.setText("");
-        //         }
-        //     }
-        // }
     }
 }

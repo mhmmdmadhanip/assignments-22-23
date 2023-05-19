@@ -37,7 +37,7 @@ public class MemberSystemGUI extends AbstractMemberGUI {
      * */
     @Override
     protected JButton[] createButtons() {
-        // TODO
+        // menambahkan button
         return new JButton[]{
             new JButton("Saya ingin laundry"),
             new JButton("Lihat detail nota saya")
@@ -63,7 +63,7 @@ public class MemberSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button pertama pada createButtons
      * */
     private void showDetailNota() {
-        // TODO
+        // buat panel
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -83,12 +83,12 @@ public class MemberSystemGUI extends AbstractMemberGUI {
         for (Nota nota : loggedInMember.getNotaList()) {
             result += nota + "\n\n\n";
         }
-        if(loggedInMember.getNotaList().length == 0){
+        if(loggedInMember.getNotaList().length == 0){ //tidak ada nota
             textArea.setText("Belum pernah laundry di CuciCuci, hiks :'(");
         }else{
             textArea.setText(result);
         }
-        mainPanel.addMouseListener(new MouseAdapter(){
+        mainPanel.addMouseListener(new MouseAdapter(){ //close panel saat pencet ok
             public void mouseClicked(MouseEvent e){
                 MainFrame.getInstance().dispose();
             }
@@ -106,7 +106,7 @@ public class MemberSystemGUI extends AbstractMemberGUI {
      * Akan dipanggil jika pengguna menekan button kedua pada createButtons
      * */
     private void createNota() {
-        // TODO
+        // menuju panel create nota
         MainFrame.getInstance().navigateTo("CREATE_NOTA");
     }
 

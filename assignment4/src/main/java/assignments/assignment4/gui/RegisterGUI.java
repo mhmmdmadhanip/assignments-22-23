@@ -41,19 +41,20 @@ public class RegisterGUI extends JPanel {
      * Be creative and have fun!
      * */
     private void initGUI() {
-        // TODO
+        // init gbc 
         GridBagConstraints grid = new GridBagConstraints();
         grid.anchor = GridBagConstraints.NORTHWEST;
         grid.weightx = 1.0;
         grid.weighty = 1.0;
         grid.fill = GridBagConstraints.NONE;
 
+        //add semua field, label, button ke main Panel dan mengubah nilai gridy
         nameLabel = new JLabel("Masukan nama Anda:");
         grid.gridy = 0;
         mainPanel.add(nameLabel, grid);
 
         nameTextField = new JTextField();
-        nameTextField.setPreferredSize(new Dimension(650, 20));
+        nameTextField.setPreferredSize(new Dimension(650, 20)); //set size name field
         grid.gridy = 1;
         mainPanel.add(nameTextField, grid);
 
@@ -62,7 +63,7 @@ public class RegisterGUI extends JPanel {
         mainPanel.add(phoneLabel, grid);
 
         phoneTextField = new JTextField();
-        phoneTextField.setPreferredSize(new Dimension(650, 20));
+        phoneTextField.setPreferredSize(new Dimension(650, 20)); //set size nomor field
         grid.gridy = 3;
         mainPanel.add(phoneTextField, grid);
 
@@ -71,15 +72,15 @@ public class RegisterGUI extends JPanel {
         mainPanel.add(passwordLabel, grid);
 
         passwordField = new JPasswordField();
-        passwordField.setPreferredSize(new Dimension(650, 20));
+        passwordField.setPreferredSize(new Dimension(650, 20)); //set size password field
         grid.gridy = 5;
         mainPanel.add(passwordField, grid);
         
         registerButton = new JButton("Register");
         grid.gridy = 6;
-        grid.anchor = GridBagConstraints.CENTER;
+        grid.anchor = GridBagConstraints.CENTER; //mengembalikan anchor ke tengah
         mainPanel.add(registerButton, grid);
-        registerButton.addActionListener(new ActionListener(){
+        registerButton.addActionListener(new ActionListener(){//add listener register button
             public void actionPerformed(ActionEvent e){
                 handleRegister();
             }
@@ -88,7 +89,7 @@ public class RegisterGUI extends JPanel {
         backButton = new JButton("Kembali");
         grid.gridy = 7;
         mainPanel.add(backButton, grid);
-        backButton.addActionListener(new ActionListener(){
+        backButton.addActionListener(new ActionListener(){//add listener back button
             public void actionPerformed(ActionEvent e){
                 handleBack();
             }
@@ -100,7 +101,8 @@ public class RegisterGUI extends JPanel {
      * Akan dipanggil jika pengguna menekan "backButton"
      * */
     private void handleBack() {
-        MainFrame.getInstance().navigateTo("HOME");
+        MainFrame.getInstance().navigateTo("HOME"); //menuju home page
+        //set semua field menjadi kosong
         nameTextField.setText("");
         phoneTextField.setText("");
         passwordField.setText("");
@@ -111,33 +113,32 @@ public class RegisterGUI extends JPanel {
     * Akan dipanggil jika pengguna menekan "registerButton"
     * */
     private void handleRegister() {
-        // TODO
+        // cek semua field, return agar method berhenti
         if(nameTextField.getText().equals("") ||
          phoneTextField.getText().equals("") || 
          new String(passwordField.getPassword()).equals("")){
-             JOptionPane.showMessageDialog(null, "Semua field diatas wajib diisi!", "Empty Field", JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(this, "Semua field diatas wajib diisi!", "Empty Field", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //validasi nomor hp, return agar method berhenti
         else if(!phoneTextField.getText().matches("[0-9]+")){
-            int res = JOptionPane.showOptionDialog(null, "Nomor handphone harus berisi angka", "Invalid Phone Number", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE, null, null, null);
+            //saat ok buton dipencet field nomor akan kosong
+            int res = JOptionPane.showOptionDialog(this, "Nomor handphone harus berisi angka", "Invalid Phone Number", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE, null, null, null);
             if (res == 0){
                 phoneTextField.setText("");
             }
             return;
         }
+        //membuat objek member baru
         Member memberBaru = loginManager.register(nameTextField.getText(), phoneTextField.getText(), new String(passwordField.getPassword()));
         if(memberBaru == null){
-            JOptionPane.showMessageDialog(null, "User dengan nama "+ nameTextField.getText() + " dan nomor hp "+ phoneTextField.getText()+ " sudah ada!", "Registration Failed", JOptionPane.ERROR_MESSAGE);
-            MainFrame.getInstance().navigateTo("HOME");
-            nameTextField.setText("");
-            phoneTextField.setText("");
-            passwordField.setText("");
+            //option pane saat gagal membuat member
+            JOptionPane.showMessageDialog(this, "User dengan nama "+ nameTextField.getText() + " dan nomor hp "+ phoneTextField.getText()+ " sudah ada!", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+            handleBack();
         }else{
-            JOptionPane.showMessageDialog(null, "Berhasil membuat user dengan ID " + memberBaru.getId() + "!", "Registration Succesful", JOptionPane.INFORMATION_MESSAGE);
-            MainFrame.getInstance().navigateTo("HOME");
-            nameTextField.setText("");
-            phoneTextField.setText("");
-            passwordField.setText("");
+            //option pane saat berhasil membuat member
+            JOptionPane.showMessageDialog(this, "Berhasil membuat user dengan ID " + memberBaru.getId() + "!", "Registration Succesful", JOptionPane.INFORMATION_MESSAGE);
+            handleBack();
         }
     }
 }
